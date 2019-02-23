@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TrueSize</title>
+  </head>
+  <body>
+    <h1>True to Size</h1>
+    <div>
+      Name:<br />
+      <input id="model_name" type="text" name="name" value="" />
+      <br />
+      Size:<br />
+      <select id="model_size">
+        <option value="1">1 - Really Small</option>
+        <option value="2">2 - Small</option>
+        <option value="3" selected="true">3 - True-to-Size</option>
+        <option value="4">4 - Big</option>
+        <option value="5">5 - Really Big</option>
+      </select>
+      <br /><br />
+      <input id="submit_btn" type="button" value="Submit" />
+      <input id="get_average_btn" type="button" value="Get Average" />
+    </div>
+    <script>
+      async function postTrueToSizeEntry(name, size) {
+        // Basic validation
+        if (!name || !size) {
+          throw new Error("Fields must not be empty.");
+        }
+
+        return fetch(`true-size`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, size })
+        });
+      }
+
+      async function getTrueToSizeAverage(name) {
+        // Basic validation
+        if (!name) {
+          throw new Error("Name cannot be null");
+        }
+
+        return fetch(`true-size/${encodeURIComponent(name)}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      document.getElementById("submit_btn").onclick = function() {
+        const nameEl = document.getElementById("model_name");
+        const sizeEl = document.getElementById("model_size");
+        const name = nameEl.value;
+        const size = sizeEl.value;
+
+        postTrueToSizeEntry(name, size)
+          .then(res => res.json())
+          .then(function(response) {
+            if (response.error) {
+              alert(response.error);
+              return;
+            }
+
+            alert(
+              `Success! The average true-to-size value is: ${response.avgValue}`
+            );
+
+            // Clear inputs.
+            nameEl.value = "";
+            sizeEl.value = "3";
+          })
+          .catch(alert);
+      };
+
+      document.getElementById("get_average_btn").onclick = function() {
+        const nameEl = document.getElementById("model_name");
+        const name = nameEl.value;
+
+        getTrueToSizeAverage(name)
+          .then(res => res.json())
+          .then(function(response) {
+            if (response.error) {
+              alert(response.error);
+              return;
+            }
+
+            if (response.avgValue) {
+              alert(`The average true-to-size value is: ${response.avgValue}`);
+            } else {
+              alert("There is no true-to-size data for this model.");
+            }
+          })
+          .catch(alert);
+      };
+    </script>
+  </body>
+</html>
