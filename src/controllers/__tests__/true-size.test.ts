@@ -4,6 +4,7 @@ import express from "express";
 import mockKnex from "mock-knex";
 import knex from "knex";
 
+// Utility constants.
 const MOCK_NAME = "some name";
 const MOCK_SIZE = 3;
 const MOCK_AVERAGE = 2.75;
@@ -13,17 +14,20 @@ let tracker = mockKnex.getTracker();
 
 describe("true-size", () => {
   beforeEach(() => {
-    const connection = knex({
-      client: "pg"
-    });
+    // Mocks connection to database.
+    const connection = knex({ client: "pg" });
     mockKnex.mock(connection);
-    app = express();
-    app.use(makeRouter(connection));
+
+    // Creates tracker object used to mock database queries.
     tracker = mockKnex.getTracker();
     tracker.install();
+
+    // Creates app with router to be tested.
+    app = express();
+    app.use(makeRouter(connection));
   });
 
-  it("should get average value.", done => {
+  it("should get average value correctly.", done => {
     tracker.on("query", query => {
       query.response({ avg: MOCK_AVERAGE });
     });
@@ -38,7 +42,7 @@ describe("true-size", () => {
       });
   });
 
-  it("POST calls insert correctly.", done => {
+  it("POST calls insert method and returns correctly.", done => {
     let validInsert = false;
     tracker.on("query", query => {
       if (query.method === "insert") {
@@ -49,21 +53,6 @@ describe("true-size", () => {
             JSON.stringify([MOCK_NAME, MOCK_SIZE]);
       }
 
-      query.response({});
-    });
-
-    request(app)
-      .post("/")
-      .send({ name: MOCK_NAME, size: MOCK_SIZE })
-      .expect(200)
-      .then(() => {
-        expect(validInsert).toBeTruthy();
-        done();
-      });
-  });
-
-  it("POST returns average value correctly.", done => {
-    tracker.on("query", query => {
       query.response({ avg: MOCK_AVERAGE });
     });
 
@@ -72,6 +61,7 @@ describe("true-size", () => {
       .send({ name: MOCK_NAME, size: MOCK_SIZE })
       .expect(200)
       .then(({ body }) => {
+        expect(validInsert).toBeTruthy();
         expect(body).toEqual({ name: MOCK_NAME, avgValue: MOCK_AVERAGE });
         done();
       });

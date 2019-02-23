@@ -2,8 +2,8 @@ import { Router } from "express";
 import { validate } from "../utils/validate";
 import { findAvgSizeByModelName } from "../db/findAvgSizeByModelName";
 import { QueryInterface } from "knex";
-import { isValidTrueToSizeValue } from "../utils";
 import bodyParser from "body-parser";
+import { isValidTrueToSizeValue } from "../utils/isValidTrueToSizeValue";
 
 /**
  * Returns Express router for handling true-to-size operations.
