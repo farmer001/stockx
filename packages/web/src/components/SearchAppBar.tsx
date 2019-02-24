@@ -1,15 +1,18 @@
 import * as React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles, Theme, createStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
+const KEY_CODE_ENTER = 13;
+
 interface Props {
+  onQuery: (
+    name: string
+  ) => Promise<{ avgValue: number | null; error: string | null }>;
   classes: {
     root: string;
     title: string;
@@ -21,7 +24,15 @@ interface Props {
   };
 }
 
-class InnerAppBar extends React.Component<Props> {
+interface State {
+  queryValue: string;
+}
+
+class InnerAppBar extends React.Component<Props, State> {
+  state: State = {
+    queryValue: ""
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -43,10 +54,19 @@ class InnerAppBar extends React.Component<Props> {
                 <SearchIcon />
               </div>
               <InputBase
+                value={this.state.queryValue}
                 placeholder="Search..."
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput
+                }}
+                onChange={e => {
+                  this.setState({ queryValue: e.target.value });
+                }}
+                onKeyUp={e => {
+                  if (e.keyCode === KEY_CODE_ENTER) {
+                    this.handleQuery();
+                  }
                 }}
               />
             </div>
@@ -55,6 +75,11 @@ class InnerAppBar extends React.Component<Props> {
       </div>
     );
   }
+
+  private handleQuery = async () => {
+    const result = await this.props.onQuery(this.state.queryValue);
+    console.log(result);
+  };
 }
 
 const styles = (theme: Theme) =>

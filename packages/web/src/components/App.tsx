@@ -25,7 +25,7 @@ class InnerApp extends React.Component<Props> {
     return (
       <div>
         <CssBaseline />
-        <SearchAppBar />
+        <SearchAppBar onQuery={this.handleQuery} />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
@@ -55,13 +55,25 @@ class InnerApp extends React.Component<Props> {
       throw new Error("Fields must not be empty.");
     }
 
-    return fetch(`true-size`, {
+    return fetch(`http://true-size.localhost:8080/true-size`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, size })
     })
       .then(res => res.json())
       .then(({ error }) => ({ error }));
+  };
+
+  private handleQuery = (
+    name: string
+  ): Promise<{ avgValue: number | null; error: string | null }> => {
+    return fetch(
+      `http://true-size.localhost:8080/true-size/${encodeURIComponent(name)}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      }
+    ).then(res => res.json());
   };
 }
 

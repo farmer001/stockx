@@ -1,0 +1,43 @@
+http:
+  port: 8080
+apiEndpoints:
+  web:
+    host: localhost
+
+  true-size:
+    host: true-size.localhost
+
+serviceEndpoints:
+  web:
+    url: "http://web:8080"
+
+  true-size:
+    url: "http://true-size:8080"
+
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  web:
+    apiEndpoints:
+      - web
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: web
+              changeOrigin: true
+
+  true-size:
+    apiEndpoints:
+      - true-size
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: true-size
+              changeOrigin: true

@@ -1,5 +1,19 @@
 version: "3"
 services:
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: ./services/gateway/Dockerfile
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - web
+    ports:
+      - 8080:8080
+    links:
+      - web
+
   web:
     container_name: web
     build:
@@ -7,12 +21,8 @@ services:
       dockerfile: ./packages/web/Dockerfile
     volumes:
       - .:/usr/src/app
-    depends_on:
-      - true-size
     ports:
-      - 8080:9000
-    links:
-      - true-size
+      - 8080
 
   true-size:
     container_name: true-size
