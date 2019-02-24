@@ -5,9 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./services/gateway/Dockerfile
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - web
     ports:
@@ -20,9 +17,6 @@ services:
     build:
       context: .
       dockerfile: ./services/web/Dockerfile
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - true-size
     ports:
@@ -35,9 +29,6 @@ services:
     build:
       context: .
       dockerfile: ./services/true-size/Dockerfile
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - stockx-db
     ports:
