@@ -10,3 +10,5 @@ LICENSE
 
 node_modules
 services/web/node_modules
+services/gateway/node_modules
+services/true-size/node_modules
