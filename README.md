@@ -13,7 +13,7 @@ The `true-size` backend is responsible for both interacting with the database an
 
 ## Overall architecture
 
-![v1](https://imgur.com/a/bd8wNfm)
+![v1](https://i.imgur.com/OpTEPrt.png)
 
 # V2.0
 
