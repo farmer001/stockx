@@ -26,7 +26,7 @@ The goal of V2.0 is to demonstrate further understanding of backend and frontend
 
 ## Overall architecture
 
-![v2](https://imgur.com/a/3V4a5B8)
+![v2](https://imgur.com/DK8RwQq)
 
 TODO(willbrazil): Cleanup Dockerfile/Remove unnecessary logic.
 TODO(willbrazil): Fix node_modules mounting logic
