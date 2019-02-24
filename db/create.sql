@@ -1,5 +1,0 @@
-CREATE TABLE true_sizes (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR (50) NOT NULL,
-    value SMALLINT NOT NULL
-);
