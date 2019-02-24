@@ -4,9 +4,12 @@
   "author": "willbrazil",
   "license": "MIT",
   "scripts": {
+    "build": "tsc -b",
     "start:dev": "webpack-dev-server"
   },
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "@types/react": "^16.8.4",
     "@types/react-dom": "^16.8.2",
     "html-webpack-plugin": "^3.2.0",
