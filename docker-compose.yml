@@ -1,8 +1,10 @@
 version: "3"
 services:
-  app:
-    container_name: app
-    build: .
+  true-size:
+    container_name: true-size
+    build:
+      context: .
+      dockerfile: ./services/true-size/Dockerfile
     volumes:
       - .:/usr/src/app
     depends_on:
@@ -18,7 +20,7 @@ services:
 
   stockx-db:
     container_name: stockx-db
-    build: ./db
+    build: ./services/true-size/db
     ports:
       - 5432:5432
     volumes:
