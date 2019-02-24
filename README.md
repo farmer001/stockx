@@ -1,6 +1,7 @@
 # stockx
 
 # V1.0
+![View code](https://github.com/farmer001/stockx/tree/v1)
 
 ## Usage
 `git clone https://github.com/farmer001/stockx && cd stockx && git fetch && git checkout v1 && docker-compose up`
@@ -16,6 +17,7 @@ The `true-size` backend is responsible for both interacting with the database an
 ![v1](https://i.imgur.com/OpTEPrt.png)
 
 # V2.0
+![View code](https://github.com/farmer001/stockx/tree/v2)
 
 ## Usage
 `git clone https://github.com/farmer001/stockx && cd stockx && git fetch && git checkout v2 && docker-compose up`
