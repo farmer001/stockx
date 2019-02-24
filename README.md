@@ -20,8 +20,8 @@ The `true-size` backend is responsible for both interacting with the database an
 [View code](https://github.com/farmer001/stockx/tree/v2)
 
 ## Usage
-`git clone https://github.com/farmer001/stockx && cd stockx && git fetch && git checkout v2 && docker-compose up`
-Navigate to `http://localhost:8080`
+* `git clone https://github.com/farmer001/stockx && cd stockx && git fetch && git checkout v2 && docker-compose up`
+* Navigate to `http://localhost:8080`
 
 ## Overview
 The goal of V2.0 is to demonstrate further understanding of backend and frontend infra, build tools, monolithic repos, code sharing, microservices, and more. 
