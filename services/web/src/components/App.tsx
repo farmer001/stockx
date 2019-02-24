@@ -7,11 +7,9 @@ import {
   createStyles,
   withStyles,
   CssBaseline,
-  Divider,
-  Modal
+  Divider
 } from "@material-ui/core";
 import { MainForm } from "./MainForm";
-import { getBaseModalStyle } from "../getBaseModalStyle";
 
 interface Props {
   classes: {

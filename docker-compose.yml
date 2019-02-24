@@ -7,6 +7,7 @@ services:
       dockerfile: ./services/gateway/Dockerfile
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - web
     ports:
@@ -18,11 +19,16 @@ services:
     container_name: web
     build:
       context: .
-      dockerfile: ./packages/web/Dockerfile
+      dockerfile: ./services/web/Dockerfile
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - true-size
     ports:
       - 8080
+    links:
+      - true-size
 
   true-size:
     container_name: true-size
@@ -31,6 +37,7 @@ services:
       dockerfile: ./services/true-size/Dockerfile
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - stockx-db
     ports:

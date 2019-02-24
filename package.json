@@ -1,18 +1,16 @@
 {
   "private": true,
+  "version": "0.0.0",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "tsc -b",
-    "test": "lerna run test",
-    "clean": "rimraf packages/**/lib"
+    "build": "tsc -b"
   },
   "devDependencies": {
-    "@types/node": "^8.0.28",
-    "lerna": "^2.11.0",
-    "rimraf": "^2.6.2",
-    "typescript": "~3.0.0"
+    "lerna": "^3.13.0",
+    "typescript": "^3.3.3333"
   },
   "workspaces": [
     "services/*"
-  ]
+  ],
+  "name": "stockx"
 }

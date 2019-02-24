@@ -8,8 +8,8 @@
   "author": "willbrazil",
   "license": "MIT",
   "scripts": {
+    "prepublishOnly": "tsc -b .",
     "start": "node lib/index.js",
-    "build": "tsc -b",
     "dev": "concurrently --kill-others 'tsc -b --w' 'nodemon ./lib/index.js'",
     "test": "jest"
   },

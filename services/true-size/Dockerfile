@@ -12,7 +12,7 @@ RUN yarn bootstrap
 
 COPY . .
 
-RUN cd services/true-size && yarn build
+RUN yarn && npx tsc -b services/true-size
 WORKDIR /usr/src/app/services/true-size
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start:dev"]

@@ -1,4 +1,7 @@
 {
   "files": [],
-  "references": [{ "path": "./packages/web" }]
+  "references": [
+    { "path": "./services/web" },
+    { "path": "./services/true-size" }
+  ]
 }

@@ -5,14 +5,14 @@ WORKDIR /usr/src/app
 COPY package*.json .
 COPY lerna.json .
 
-COPY packages/web/package*.json packages/web
+COPY services/web/package*.json services/web
 
 RUN yarn
 RUN yarn bootstrap
 
 COPY . .
 
-RUN cd packages/web && yarn build
-WORKDIR /usr/src/app/packages/web
+RUN cd services/web && yarn && npx tsc -b
+WORKDIR /usr/src/app/services/web
 
 CMD ["yarn", "start:dev"]
