@@ -30,6 +30,11 @@ The goal of V2.0 is to demonstrate further understanding of backend and frontend
 
 ![v2](https://i.imgur.com/DK8RwQq.png)
 
+# Note: Naive Average
+We currently compute the average by looking up all DB entries for a given shoe model/name. We could greatly improve look-up time by creating a table to keep track of a "streaming average" - where inserts are done by following the formula `(prev_avg * n + x) / (n + 1);` where n is the number of entries and X is the incoming value. 
+
+# TODO
+
 TODO(willbrazil): Cleanup Dockerfile/Remove unnecessary logic (speed up/cache node_modules).
 
 TODO(willbrazil): Fix node_modules mounting logic
