@@ -28,6 +28,8 @@ The goal of V2.0 is to demonstrate further understanding of backend and frontend
 
 ![v2](https://i.imgur.com/DK8RwQq.png)
 
-TODO(willbrazil): Cleanup Dockerfile/Remove unnecessary logic.
+TODO(willbrazil): Cleanup Dockerfile/Remove unnecessary logic (speed up/cache node_modules).
+
 TODO(willbrazil): Fix node_modules mounting logic
+
 TODO(willbrazil): Cleanup lerna
