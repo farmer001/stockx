@@ -7,9 +7,11 @@ import {
   createStyles,
   withStyles,
   CssBaseline,
-  Divider
+  Divider,
+  Modal
 } from "@material-ui/core";
 import { MainForm } from "./MainForm";
+import { getBaseModalStyle } from "../getBaseModalStyle";
 
 interface Props {
   classes: {
@@ -36,7 +38,7 @@ class InnerApp extends React.Component<Props> {
               True-to-size refers to whether or not a shoe fits as expected for
               a given size. True shoe sizes are measured using the Brannock
               device, the number shown on that device next to your toe is your
-              true shoe size
+              true shoe size.
             </Typography>
 
             <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
@@ -61,7 +63,7 @@ class InnerApp extends React.Component<Props> {
       body: JSON.stringify({ name, size })
     })
       .then(res => res.json())
-      .then(({ error }) => ({ error }));
+      .then(({ error, avgValue }) => ({ error, avgValue }));
   };
 
   private handleQuery = (

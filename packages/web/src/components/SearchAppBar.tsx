@@ -6,6 +6,8 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles, Theme, createStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import { Modal } from "@material-ui/core";
+import { getBaseModalStyle } from "../getBaseModalStyle";
 
 const KEY_CODE_ENTER = 13;
 
@@ -21,16 +23,19 @@ interface Props {
     searchIcon: string;
     inputRoot: string;
     inputInput: string;
+    paper: string;
   };
 }
 
 interface State {
   queryValue: string;
+  modalText: string | null;
 }
 
 class InnerAppBar extends React.Component<Props, State> {
   state: State = {
-    queryValue: ""
+    queryValue: "",
+    modalText: null
   };
 
   render() {
@@ -72,13 +77,53 @@ class InnerAppBar extends React.Component<Props, State> {
             </div>
           </Toolbar>
         </AppBar>
+
+        <Modal
+          aria-labelledby="modal"
+          aria-describedby="modal"
+          open={this.state.modalText !== null}
+          onClose={() => {
+            this.setState({ modalText: null });
+          }}
+        >
+          <div style={getBaseModalStyle()} className={classes.paper}>
+            <Typography variant="subtitle1" id="modal">
+              {this.state.modalText}
+            </Typography>
+          </div>
+        </Modal>
       </div>
     );
   }
 
   private handleQuery = async () => {
+    if (!this.state.queryValue) {
+      return;
+    }
+
     const result = await this.props.onQuery(this.state.queryValue);
-    console.log(result);
+
+    if (result.error) {
+      this.setState({
+        modalText: `Something went wrong. Please try again. Error: ${
+          result.error
+        }`
+      });
+    }
+
+    if (result.avgValue) {
+      this.setState({
+        modalText: `The average True-ToSize value for ${
+          this.state.queryValue
+        } is ${result.avgValue}`
+      });
+    } else {
+      this.setState({
+        modalText: `There are no true-to-size entries for '${
+          this.state.queryValue
+        }'`
+      });
+    }
   };
 }
 
@@ -140,6 +185,14 @@ const styles = (theme: Theme) =>
           width: 200
         }
       }
+    },
+    paper: {
+      position: "absolute",
+      width: theme.spacing.unit * 50,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing.unit * 4,
+      outline: "none"
     }
   });
 

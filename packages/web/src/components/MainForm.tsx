@@ -8,14 +8,21 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Button
+  Button,
+  Modal,
+  Typography
 } from "@material-ui/core";
+import { getBaseModalStyle } from "../getBaseModalStyle";
 
 interface Props {
-  onSubmit: (name: string, size: number) => Promise<{ error: string | null }>;
+  onSubmit: (
+    name: string,
+    size: number
+  ) => Promise<{ error: string | null; avgValue: number | null }>;
   classes: {
     formControl: string;
     button: string;
+    paper: string;
   };
 }
 
@@ -23,13 +30,15 @@ interface State {
   modelName: string;
   modelValue: number | "";
   error: string | null;
+  modalText: string | null;
 }
 
 class InnerForm extends React.Component<Props, State> {
   state: State = {
     modelName: "",
     modelValue: "",
-    error: null
+    error: null,
+    modalText: null
   };
   render() {
     const { classes } = this.props;
@@ -80,6 +89,21 @@ class InnerForm extends React.Component<Props, State> {
         >
           Submit
         </Button>
+
+        <Modal
+          aria-labelledby="modal"
+          aria-describedby="modal"
+          open={this.state.modalText !== null}
+          onClose={() => {
+            this.setState({ modalText: null });
+          }}
+        >
+          <div style={getBaseModalStyle()} className={classes.paper}>
+            <Typography variant="subtitle1" id="modal">
+              {this.state.modalText}
+            </Typography>
+          </div>
+        </Modal>
       </div>
     );
   }
@@ -112,7 +136,14 @@ class InnerForm extends React.Component<Props, State> {
 
     const response = await this.props.onSubmit(modelName, modelValue);
     if (!response.error) {
-      this.setState({ error: null });
+      this.setState({
+        error: null,
+        modalText: `Success! The average True-to-Size value is ${
+          response.avgValue
+        }`,
+        modelName: "",
+        modelValue: ""
+      });
     } else {
       this.setState({ error: response.error });
     }
@@ -127,6 +158,14 @@ const styles = (theme: Theme) =>
     },
     button: {
       margin: theme.spacing.unit
+    },
+    paper: {
+      position: "absolute",
+      width: theme.spacing.unit * 50,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing.unit * 4,
+      outline: "none"
     }
   });
 
