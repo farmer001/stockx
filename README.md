@@ -13,7 +13,7 @@ The `true-size` backend is responsible for both interacting with the database an
 
 ## Overall architecture
 
-
+![v1](https://imgur.com/a/bd8wNfm)
 
 # V2.0
 
@@ -26,7 +26,7 @@ The goal of V2.0 is to demonstrate further understanding of backend and frontend
 
 ## Overall architecture
 
-
+![v2](https://imgur.com/a/3V4a5B8)
 
 TODO(willbrazil): Cleanup Dockerfile/Remove unnecessary logic.
 TODO(willbrazil): Fix node_modules mounting logic
