@@ -46,6 +46,7 @@ describe("true-size", () => {
     let validInsert = false;
     tracker.on("query", query => {
       if (query.method === "insert") {
+        // Assert insert query is properly populated.
         validInsert =
           query.sql ===
             'insert into "true_sizes" ("name", "value") values ($1, $2)' &&
@@ -75,9 +76,7 @@ describe("true-size", () => {
       .send({ name: MOCK_NAME, size: INVALID_SIZE })
       .expect(400)
       .then(({ body }) => {
-        expect(body).toEqual({
-          error: expect.any(String)
-        });
+        expect(body).toEqual({ error: expect.any(String) });
 
         done();
       });
@@ -89,10 +88,7 @@ describe("true-size", () => {
       .send({ name: "", size: 4 })
       .expect(400)
       .then(({ body }) => {
-        expect(body).toEqual({
-          error: expect.any(String)
-        });
-
+        expect(body).toEqual({ error: expect.any(String) });
         done();
       });
   });
