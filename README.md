@@ -4,8 +4,8 @@
 [View code](https://github.com/farmer001/stockx/tree/v1)
 
 ## Usage
-`git clone https://github.com/farmer001/stockx && cd stockx && git fetch && git checkout v1 && docker-compose up`
-Navigate to `http://localhost:8080`
+* `git clone https://github.com/farmer001/stockx && cd stockx && git fetch && git checkout v1 && docker-compose up`
+* Navigate to `http://localhost:8080`
 
 ## Overview
 The goal of the first version is to demonstrate some understanding of backend infrastructure, dependency injection, and testability. I’ve exposed two endpoints to GET and POST true-to-size entries.
